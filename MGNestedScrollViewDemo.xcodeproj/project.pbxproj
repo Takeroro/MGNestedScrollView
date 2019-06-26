@@ -14,6 +14,7 @@
 		A5F7118922C37F51005EB4AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5F7118722C37F51005EB4AE /* LaunchScreen.storyboard */; };
 		A5F7118C22C37F51005EB4AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F7118B22C37F51005EB4AE /* main.m */; };
 		A5F7119B22C39FA9005EB4AE /* MGNestedScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F7119A22C39FA9005EB4AE /* MGNestedScrollView.m */; };
+		A5F7119E22C3A75E005EB4AE /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F7119D22C3A75E005EB4AE /* TableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,9 @@
 		A5F7118B22C37F51005EB4AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A5F7119922C39FA9005EB4AE /* MGNestedScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGNestedScrollView.h; sourceTree = "<group>"; };
 		A5F7119A22C39FA9005EB4AE /* MGNestedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGNestedScrollView.m; sourceTree = "<group>"; };
+		A5F7119C22C3A75E005EB4AE /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		A5F7119D22C3A75E005EB4AE /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		A5F7119F22C3A7C8005EB4AE /* ICatogeryView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICatogeryView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,9 @@
 				A5F7117D22C37F4F005EB4AE /* AppDelegate.m */,
 				A5F7117F22C37F4F005EB4AE /* ViewController.h */,
 				A5F7118022C37F4F005EB4AE /* ViewController.m */,
+				A5F7119F22C3A7C8005EB4AE /* ICatogeryView.h */,
+				A5F7119C22C3A75E005EB4AE /* TableViewController.h */,
+				A5F7119D22C3A75E005EB4AE /* TableViewController.m */,
 				A5F7118222C37F4F005EB4AE /* Main.storyboard */,
 				A5F7118522C37F51005EB4AE /* Assets.xcassets */,
 				A5F7118722C37F51005EB4AE /* LaunchScreen.storyboard */,
@@ -157,6 +164,7 @@
 				A5F7119B22C39FA9005EB4AE /* MGNestedScrollView.m in Sources */,
 				A5F7118122C37F4F005EB4AE /* ViewController.m in Sources */,
 				A5F7118C22C37F51005EB4AE /* main.m in Sources */,
+				A5F7119E22C3A75E005EB4AE /* TableViewController.m in Sources */,
 				A5F7117E22C37F4F005EB4AE /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

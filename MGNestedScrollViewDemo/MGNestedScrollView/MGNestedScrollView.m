@@ -7,7 +7,6 @@
 //
 
 #import "MGNestedScrollView.h"
-#import "YYKVOController.h"
 
 @interface MGNestedScrollView() <UIScrollViewDelegate>
 
@@ -59,7 +58,9 @@
 }
 
 - (void)dealloc {
-    
+    for (UIScrollView *scrollView in self.scrollViewDict.allValues) {
+        [scrollView removeObserver:self forKeyPath:@"contentSize"];
+    }
 }
 
 - (void)layoutSubviews
@@ -158,15 +159,10 @@
     }
 }
 
-- (void)expandHeader {
-    CGRect headerFrame = self.header.frame;
-    headerFrame.origin.y = MAX(0, self.scrollContainer.contentOffset.y);
-    self.header.frame = headerFrame;
-}
-
 - (void)_reframe
 {
     CGRect headerFrame = self.header.frame;
+    headerFrame.size.height = self.expandedHeight;
     headerFrame.origin.y = MAX(0, self.scrollContainer.contentOffset.y - (self.expandedHeight - self.shrinkedHeight));
     self.header.frame = headerFrame;
     CGRect frame = self.categoryContainer.bounds;
@@ -208,19 +204,8 @@
 - (void)_setupKVOForScrollView:(UIScrollView *)scrollView
 {
     if (scrollView && ![self.kvoCtrlDict objectForKey:@(scrollView.hash)]) {
-        __weak typeof(self) weakSelf = self;
-        __weak typeof(scrollView) weakScroll = scrollView;
-        YYKVOInfo *info = [YYKVOController observe:scrollView
-                         keyPath:@"contentSize"
-                       disposeBy:nil
-                           block:^(NSValue *newValue) {
-                               if (weakScroll == [weakSelf _scrollViewOfContentAtIndex:weakSelf.selectedIndex]) {
-                                   CGFloat contentHeight = self.expandedHeight + [newValue CGSizeValue].height + self.shrinkedHeight;
-                                   contentHeight = MAX(self.bounds.size.height + self.expandedHeight - self.shrinkedHeight, contentHeight);
-                                   self.scrollContainer.contentSize = CGSizeMake(self.bounds.size.width, contentHeight);
-                               }
-                           }];
-        [self.kvoCtrlDict setObject:info forKey:@(scrollView.hash)];
+        [scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+        [self.kvoCtrlDict setObject:scrollView forKey:@(scrollView.hash)];
     }
 }
 
@@ -240,6 +225,8 @@
             
             [self.categoryContainer addSubview:content];
             
+            scrollView.scrollEnabled = false;
+            
             if ([self.delegate respondsToSelector:@selector(nestedScrollView:didShowContentViewAtIndex:userInfo:)]) {
                 NSDictionary *userInfo = nil;
                 [self.delegate nestedScrollView:self didShowContentViewAtIndex:index userInfo:&userInfo];
@@ -252,6 +239,18 @@
         [self _setupKVOForScrollView:scrollView];
     }
     return content;
+}
+
+#pragma mark - KVO
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"contentSize"]) {
+        NSValue *newValue = [change objectForKey:NSKeyValueChangeNewKey];
+        if (object == [self _scrollViewOfContentAtIndex:self.selectedIndex]) {
+            CGFloat contentHeight = self.expandedHeight + [newValue CGSizeValue].height + self.shrinkedHeight;
+            contentHeight = MAX(self.bounds.size.height + self.expandedHeight - self.shrinkedHeight, contentHeight);
+            self.scrollContainer.contentSize = CGSizeMake(self.bounds.size.width, contentHeight);
+        }
+    }
 }
 
 #pragma mark - Getter

@@ -16,16 +16,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @required
 
-- (UIView *)headerInNestedScrollView:(MGNestedScrollView *)nsScrollView;
-
 - (NSUInteger)numberOfCategoryInNestedScrollView:(MGNestedScrollView *)nsScrollView;
+
+- (UIView *)nestedScrollView:(MGNestedScrollView *)nsScrollView contentAtIndex:(NSUInteger)index scrollView:( UIScrollView * _Nullable *_Nullable)scrollView;
+
+
+@optional
+
+- (UIView *)headerInNestedScrollView:(MGNestedScrollView *)nsScrollView;
 
 - (CGFloat)headerExpandedHeightForNestedScrollView:(MGNestedScrollView *)nsScrollView;
 
 - (CGFloat)headerShrinkedHeightForNestedScrollView:(MGNestedScrollView *)nsScrollView;
 
 @optional
-- (UIView *)nestedScrollView:(MGNestedScrollView *)nsScrollView contentAtIndex:(NSUInteger)index scrollView:( UIScrollView * _Nullable *_Nullable)scrollView;
 @end
 
 @protocol MGNestedScrollViewDelegate <NSObject>

@@ -162,7 +162,6 @@
 - (void)_reframe
 {
     CGRect headerFrame = self.header.frame;
-    headerFrame.size.height = self.expandedHeight;
     headerFrame.origin.y = MAX(0, self.scrollContainer.contentOffset.y - (self.expandedHeight - self.shrinkedHeight));
     self.header.frame = headerFrame;
     CGRect frame = self.categoryContainer.bounds;
@@ -257,6 +256,7 @@
 - (UIView *)header {
     if (!_header && [self.dataSource respondsToSelector:@selector(headerInNestedScrollView:)]) {
         _header = [self.dataSource headerInNestedScrollView:self];
+        _header.frame = CGRectMake(0, 0, self.frame.size.width, self.expandedHeight);
     }
     return _header;
 }
